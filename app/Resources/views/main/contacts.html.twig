@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-12">
+        <h2 class="mb-3" style='display: none;'>{% block title %}{{ 'main.contacts' | trans() }}{% endblock %}</h2>
+
+        <div>Email: <a href="mailto:aleksandr.permyakov@npo-at.com">aleksandr.permyakov@npo-at.com</a></div>
+        <div>Telegram: <a href="https://t.me/pedectrian" target="_blank">Техническая поддержка</a></div>
+    </div>
+{% endblock %}

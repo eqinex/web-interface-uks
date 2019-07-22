@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-12">
+        <h2 class="mb-3" style='display: none;'>{% block title %}{{ 'main.documents' | trans() }}{% endblock %}</h2>
+        <ol>
+            <li><a href="{{ path('documents_intro') }}">{{ 'documents.intro' | trans() }}</a></li>
+            <li><a href="{{ path('documents_requirements') }}">{{ 'documents.requirements' | trans() }}</a></li>
+            {#<li><a href="{{ path('documents_install') }}">{{ 'documents.install' | trans() }}</a></li>#}
+            {#<li><a href="{{ path('documents_start_activate') }}">{{ 'documents.start_activate' | trans() }}</a></li>#}
+            {#<li><a href="{{ path('documents_scenarios') }}">{{ 'documents.scenarios' | trans() }}</a></li>#}
+            {#<li><a href="{{ path('documents_physical_model') }}">{{ 'documents.physical_model' | trans() }}</a></li>#}
+            <li><a href="{{ path('documents_protocol') }}">{{ 'documents.protocol' | trans() }}</a></li>
+            <li><a href="{{ path('documents_limits') }}">{{ 'documents.limits' | trans() }}</a></li>
+            {#<li><a href="{{ path('documents_vision') }}">{{ 'documents.vision' | trans() }}</a></li>#}
+            {#<li><a href="#">Аварийные ситуации</a></li>#}
+        </ol>
+    </div>
+{% endblock %}

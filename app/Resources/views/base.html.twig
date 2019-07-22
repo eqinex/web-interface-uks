@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{{ block('title') | capitalize }}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/fontawesome-all.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+
+        <div class="wrapper">
+            <div class="container-fluid sidebar">
+                <ul class="nav nav-pills flex-column" id="side-menu">
+                    {% if app.user.canViewModels() %}
+                        <li class="nav-item">
+                            <a href="/" class="nav-link {{ app.request.attributes.get('_route') == 'homepage' ? 'active' : '' }}">
+                                <img src="{{ asset('images/squire.png') }}" alt="models">
+                                <span>{{ 'Models' | trans() }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('environment_list') }}" class="nav-link {{ app.request.attributes.get('_route') == 'environment_list' ? 'active' : '' }}" class="nav-link">
+                                <img src="{{ asset('images/environment.png') }}" alt="models">
+                                <span>{{ 'Environment' | trans() }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('operators_list') }}" class="nav-link {{ app.request.attributes.get('_route') == 'operators_list' ? 'active' : '' }}">
+                                <img src="{{ asset('images/operators.png') }}" alt="operators">
+                                <span>{{ 'Operators' | trans() }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.canViewExperiments() %}
+                        <li class="nav-item">
+                            <a href="{{ path('experiments_list') }}" class="nav-link {{ app.request.attributes.get('_route') == 'experiments_list' or app.request.attributes.get('_route') == 'experiments_details' ? 'active' : '' }}">
+                                <img src="{{ asset('images/flask.png') }}" alt="experiments">
+                                <span>{{ 'Experiments' | trans() }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('statistics_list') }}" class="nav-link {{ app.request.attributes.get('_route') == 'statistics_list' ? 'active' : '' }}">
+                                <img src="{{ asset('images/statistic.png') }}" alt="statistics">
+                                <span>{{ 'Statistics' | trans() }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.canViewModels() %}
+                        <li class="nav-item">
+                            <a href="{{ path('settings') }}" class="nav-link {{ app.request.attributes.get('_route') == 'settings' ? 'active' : '' }}">
+                                <img src="{{ asset('images/settings.png') }}" alt="settings">
+                                <span>{{ 'Settings' | trans() }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('joints') }}" class="nav-link {{ app.request.attributes.get('_route') == 'joints' ? 'active' : '' }}">
+                                <img src="{{ asset('images/settings.png') }}" alt="settings ukt">
+                                <span>{{ 'Settings UKT' | trans() }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="container-fluid">
+                <div class="content main-row">
+                    <div class="row">
+                        <div class="col-lg-6 page-wrapper">
+                            <h1>{% block title %}{% endblock %}</h1>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="logout-wrapper float-right">
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="dropdown_user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ app.user.email }} <i class="fas fa-sm fa-chevron-down"></i></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown_user">
+                                            <a class="dropdown-item" href="{{ path('user_settings') }}">{{ 'Settings' | trans() }}</a>
+                                            <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                                        </div>
+                                    </li>
+                                {% else %}
+
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+        {% block javascripts %}
+            <script src="{{ asset('js/popper.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('js/select2.min.js') }}"></script>
+
+            <script>
+                $(document).ready(function() {
+                    $('.filter').change(function () {
+                        $('.filter-form').submit();
+                    });
+                    moment.locale('ru');
+
+                    $('.filter-form select, .select2-modify').select2({width: '200px'});
+                });
+            </script>
+        {% endblock %}
+    </body>
+</html>

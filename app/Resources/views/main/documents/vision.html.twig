@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-10">
+        <h2 class="mb-3">{{ 'documents.vision' | trans() }}</h2>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+        <div>
+            <ol>
+                <li>
+                    Робот обладает 3х мерным сканером и двумя видео камерами. Сканер
+                    <a href="{{ asset('downloads/VLP-16.pdf') }}">VLP-16</a> компании Velodyne. Симулятор обеспечивает
+                    обмен данными со сканером эмулируя протокол настоящего устройства. Для получения облака точек можно
+                    воспользоваться стандартной программой
+                    <a href="{{ asset('downloads/VeloView-3.1.1-26022015-Windows-32bit.exe') }}">VeloView</a>.
+                </li
+                ><li>
+                    Конфигурация подключения сканнера и камер находятся в файле <strong>config.xml</strong> в корневой
+                    директории установки программы.
+
+                <!--textarea class="form-control mt-3 mb-3" style="width: 550px; height: 450px;">
+{{
+'<?xml version="1.0" encoding="utf-8"?>
+    <simulator>
+        <robot name="Fedor" active="true" port="10099" />
+        <scaner name="Scaner" active="true" ip="127.0.0.1" port="2368">
+            <pps>500</pps>
+            <rotation>600</rotation>
+            <distMin>0.1</distMin>
+            <distMax>50</distMax>
+            <accuracyVer>0.4</accuracyVer>
+            <accuracyDist>0.03</accuracyDist>
+        </scaner>
+        <camera name="R.Camera" active="true" port="800">
+            <fps>30</fps>
+            <width>1280</width>
+            <height>720</height>
+            <fov>60</fov>
+            <near>0.05</near>
+            <far>100</far>
+        </camera>
+        <camera name="L.Camera" active="true" port="801">
+            <fps>30</fps>
+            <width>1280</width>
+            <height>720</height>
+            <fov>60</fov>
+            <near>0.05</near>
+            <far>100</far>
+        </camera>
+    </simulator>'
+}}
+                </textarea-->
+                </li>
+            </ol>
+        </div>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+    </div>
+{% endblock %}

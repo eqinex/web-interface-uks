@@ -1,0 +1,14 @@
+{% macro inputs() %}
+    <input type="hidden" class="form-control indicator-id" value="" name="indicator[id]">
+    <div class="text-center">{{ "Are you sure you want to delete indicator?" | trans() }}</div>
+
+    <script>
+        $(document).ready(function(){
+            $('.remove-indicator').bind('click', function() {
+                var removeIndicatorForm = $('#removeIndicatorForm');
+                removeIndicatorForm.attr('action', $(this).data('href'));
+                removeIndicatorForm.find('.indicator-id').val($(this).data('id'));
+            });
+        });
+    </script>
+{% endmacro %}

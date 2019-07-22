@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-12">
+        <h2 class="mb-3" style='display: none;'>{% block title %}{{ 'documents.requirements' | trans() }}{% endblock %}</h2>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+        <div>
+            <table class="table">
+                <thead class="thead-default">
+                    <tr>
+                        <th></th>
+                        <th>Минимальные системные требования</th>
+                        <th>Рекомендуемые системные требования</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Операционная система</th>
+                        <td>Windows® 7 / Windows® 8 / Windows® 10 32-bit</td>
+                        <td>Windows® 7 / Windows® 8 / Windows® 10 32-bit</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Процессор</th>
+                        <td>Intel® Core™ i5 или AMD Phenom™ X3 8650</td>
+                        <td>Intel® Core™ i7 или AMD Phenom™ II X3 или лучше</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Графическая карта</th>
+                        <td>NVIDIA® GeForce® GTX 660, ATI Radeon™ HD 4850, или Intel® HD Graphics 4400</td>
+                        <td>NVIDIA® GeForce® GTX 770 или AMD Radeon™ HD 7950 или лучше</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Оперативная память</th>
+                        <td>1 GB RAM</td>
+                        <td>2 GB RAM</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Свободное место</th>
+                        <td colspan="2">200MB</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Интернет подключение</th>
+                        <td colspan="2">Для активации и запуска программы необходимо интернет-соединение</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Оптический привод</th>
+                        <td colspan="2">Не требуется - Симулятор можно загрузить</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Разрешение</th>
+                        <td colspan="2">Минимальное разрешение экрана 1024 x 768</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% macro inputs() %}
+    <input type="hidden" class="form-control attempt-id" value="" name="attempt[id]">
+    <div class="form-group">
+        <label class="col-sm-12 control-label">{{ 'Was the attempt successful?' | trans() }}</label>
+        <div class="col-sm-12">
+            <select class="form-control select2-modal attempt-success" name="attempt[success]" required>
+                <option value="{{ 0 }}"> {{ 'No' | trans() }} </option>
+                <option value="{{ 1 }}"> {{ 'Yes' | trans() }} </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{ 'Comments' | trans() }}</label>
+        <div class="col-sm-12">
+            <textarea class="form-control attempt-description" name="attempt[description]" required></textarea>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('.edit-attempt').bind('click', function() {
+                var editAttemptForm = $('#editAttemptForm');
+                editAttemptForm.attr('action', $(this).data('href'));
+                editAttemptForm.find('.attempt-id').val($(this).data('id'));
+                editAttemptForm.find('.attempt-success').val($(this).data('success'));
+                editAttemptForm.find('.attempt-description').val($(this).data('description'));
+
+                $('.select2-modal').select2({ width: '100%' });
+            });
+        });
+    </script>
+{% endmacro %}

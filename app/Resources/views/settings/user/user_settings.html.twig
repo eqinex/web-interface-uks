@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Settings user' | trans() }}{% endblock %}
+
+{% block body %}
+    <div class="panel"></div>
+    <form action="{{ path('save_user_settings') }}" method="post">
+        {% for conf in configurations %}
+            <div class="row form-group align-items-center col-xl-6">
+                <div class="col-xl-5">
+                    <h5><span>{{ 'Timezone' | trans() }}</span></h5>
+                </div>
+                <div class="col-xl-7">
+                    <select class="form-control select2-modal" name="settings[timezone]">
+                        <option value="">{{ 'Select timezone' | trans() }}</option>
+                        {% for timezone in timezones %}
+                            <option value="{{ timezone }}"
+                                {% if conf.timezone is defined and conf.timezone == timezone %}
+                                    {{ "selected" }}
+                                {% endif %}>{{ timezone }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="row col-xl-6">
+            <div class="col-xl-12">
+                <button type="submit" class="btn btn-primary float-right">{{ 'Save' | trans() }}</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $('.select2-modal').select2({ width: '100%' });
+        });
+    </script>
+{% endblock %}

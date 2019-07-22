@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Авторизация!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/fontawesome-all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-4 authentication">
+                    {% block fos_user_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/popper.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/select2.min.js') }}"></script>
+    {% endblock %}
+</body>
+</html>

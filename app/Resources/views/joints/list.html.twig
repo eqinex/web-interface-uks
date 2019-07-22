@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Settings UKT' | trans() }}{% endblock %}
+
+{% block body %}
+
+    <form action="{{ path("save_joints_settings") }}" method="post">
+        <div class="panel"></div>
+        <div class="row justify-content-between">
+            <div class="form-group col-xl-4">
+                <div class="row form-group">
+                    <div class="col-xl-6 title-joints">
+                        <h2>{{ 'Left hand' | trans() }}</h2>
+                    </div>
+                    <div class="col-xl-3 text-center">
+                       <span>{{ 'Gravity coefficient' | trans() ~ ' [%]' }}</span>
+                    </div>
+                    <div class="col-xl-3 text-center">
+                        <span>{{ 'Friction coefficient' | trans() ~ ' [%]' }}</span>
+                    </div>
+                </div>
+                {% set count = 1 %}
+                {% for leftJoint in leftJoints %}
+                    <div class="row form-group align-items-center">
+                        <div class="col-xl-6">
+                            <h5><span>{{ count ~ '. ' ~ leftJoint.name | trans() }}</span></h5>
+                        </div>
+                        <div class="col-xl-3">
+                            <input type="text" name="settings[{{ leftJoint.name }}][gainGravity]"class="form-control float-right" value="{{ leftJoint.gainGravity }}">
+                        </div>
+                        <div class="col-xl-3">
+                            <input type="text" name="settings[{{ leftJoint.name }}][gainFriction]"class="form-control float-right" value="{{ leftJoint.gainFriction }}">
+                        </div>
+                    </div>
+                    {% set count = count + 1 %}
+                {% endfor %}
+                <div class="row form-group align-items-center">
+                    <div class="col-xl-6 title-joints"></div>
+                    <div class="col-xl-3 text-center">
+                        <span>{{ 'Parametrs extension' | trans() ~ ', [мм]' }}</span>
+                    </div>
+                </div>
+                <div class="row form-group align-items-center">
+                    <div class="col-xl-6">
+                        <h5><span>{{ 'У1. ' ~ 'Extension Shoulder' | trans() }}</span></h5>
+                    </div>
+                    <div class="col-xl-3">
+                        <input type="text" name="settings[{{ leftElbowR.name }}][deltaLength]"class="form-control float-right" value="{{ leftElbowR.deltaLength }}">
+                    </div>
+                </div>
+                <div class="row form-group align-items-center">
+                    <div class="col-xl-6">
+                        <h5><span>{{ 'У2. ' ~ 'Extension Forearm' | trans() }}</span></h5>
+                    </div>
+                    <div class="col-xl-3">
+                        <input type="text" name="settings[{{ leftWristR.name }}][deltaLength]"class="form-control float-right" value="{{ leftWristR.deltaLength }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="row form-group" style="margin-top: 80px;">
+                    <img src="{{ asset('images/scheme_ukt.png') }}" height="380px" alt="scheme_ukt">
+                </div>
+            </div>
+
+            <div class="form-group col-xl-4 pull-right">
+                <div class="row form-group">
+                    <div class="col-xl-6 title-joints">
+                        <h2>{{ 'Right hand' | trans() }}</h2>
+                    </div>
+                    <div class="col-xl-3 text-center">
+                        <span>{{ 'Gravity coefficient' | trans() ~ ' [%]' }}</span>
+                    </div>
+                    <div class="col-xl-3 text-center">
+                        <span>{{ 'Friction coefficient' | trans() ~ ' [%]' }}</span>
+                    </div>
+                </div>
+                {% set count = 1 %}
+                {% for rightJoint in rightJoints %}
+                    <div class="row form-group align-items-center">
+                        <div class="col-xl-6">
+                            <h5><span>{{ count ~ '. ' ~ rightJoint.name | trans() }}</span></h5>
+                        </div>
+                        <div class="col-xl-3">
+                            <input type="text" name="settings[{{ rightJoint.name }}][gainGravity]" class="form-control float-right" value="{{ rightJoint.gainGravity }}">
+                        </div>
+                        <div class="col-xl-3">
+                            <input type="text" name="settings[{{ rightJoint.name }}][gainFriction]" class="form-control float-right" value="{{ rightJoint.gainFriction }}">
+                        </div>
+                    </div>
+                    {% set count = count + 1 %}
+                {% endfor %}
+                <div class="row form-group align-items-center">
+                    <div class="col-xl-6 title-joints"></div>
+                    <div class="col-xl-3 text-center">
+                        <span>{{ 'Parametrs extension' | trans() ~ ', [мм]' }}</span>
+                    </div>
+                </div>
+                <div class="row form-group align-items-center">
+                    <div class="col-xl-6">
+                        <h5><span>{{ 'У1. ' ~ 'Extension Shoulder' | trans() }}</span></h5>
+                    </div>
+                    <div class="col-xl-3">
+                        <input type="text" name="settings[{{ rightElbowR.name }}][deltaLength]" class="form-control float-right" value="{{ rightElbowR.deltaLength }}">
+                    </div>
+                </div>
+                <div class="row form-group align-items-center">
+                    <div class="col-xl-6">
+                        <h5><span>{{ 'У2. ' ~ 'Extension Forearm' | trans() }}</span></h5>
+                    </div>
+                    <div class="col-xl-3">
+                        <input type="text" name="settings[{{ rightWristR.name }}][deltaLength]" class="form-control float-right" value="{{ rightWristR.deltaLength }}">
+                    </div>
+                </div>
+                <div class="row form-group align-items-center float-right">
+                    <div class="col-xl-12">
+                        <button type="submit" class="btn btn-primary">{{ 'Save' | trans() }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

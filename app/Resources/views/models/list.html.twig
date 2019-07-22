@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Models' | trans() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% if state == 'success' %}
+        <div class="alert alert-success" role="alert">
+            {{ 'New model was sucessfully added!' | trans() }}
+        </div>
+        {% elseif state == 'warning' %}
+        <div class="alert alert-danger" role="alert">
+            {{ 'Error occured file loading new model!' | trans() }}
+        </div>
+        {% endif %}
+        <div class="panel">
+            <button  type="button" class="btn btn-primary float-right" data-toggle="modal" data-target=".addModelModal"><i class="fa small fa-plus"></i> {{ 'Add' | trans() }}</button>
+            <form class="form-inline filter-form" method="get" action="{{ path('homepage') }}">
+                <div class="form-group filter">
+                    <select class="form-control" name="filters[type]">
+                        <option value="">{{ 'Type' | trans() }}</option>
+                        {% for type in types %}
+                            <option {% if filters.type is defined and filters.type == type.id %}selected{% endif %} value="{{ type.id }}">
+                                {{ type.value | trans() }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group filter">
+                    <select class="form-control" name="filters[name]">
+                        <option value="">{{ 'Name' | trans() }}</option>
+                        {% for model in modelFilters %}
+                            <option {% if filters.name is defined and filters.name == model.name %}selected{% endif %} value="{{ model.name }}">
+                                {{ model.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group filter">
+                    <select class="form-control" name="filters[bundle]">
+                        <option value="">{{ 'Bundle' | trans() }}</option>
+                        {% for model in modelFilters %}
+                            <option {% if filters.bundle is defined and filters.bundle == model.bundle %}selected{% endif %} value="{{ model.bundle }}">
+                                {{ model.bundle }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group filter">
+                    <span>{{ 'Show inactive' | trans() }}</span>
+                    <input style="margin-left: 5px; margin-top: 5px;" type="checkbox" name="filters[active]" {{ filters.active is defined ? 'checked' : '' }}>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-primary">
+
+            <tr>
+                <th class="text-capitalize"><strong>ID</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Type' | trans() }}</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Name' | trans() }}</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Bundle' | trans() }}</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Hash' | trans() }}</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Path' | trans() }}</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Version' | trans() }}</strong></th>
+                <th class="text-capitalize text-center"><strong>{{ 'Active' | trans() }}</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for model in models %}
+                <tr>
+                    <td><span>{{ model.id }}</span></td>
+                    <td><span>{{ model.type ? model.type.value | trans() : '-' }}</span></td>
+                    <td><span>{{ model.name }}</span></td>
+                    <td><span>{{ model.bundle }}</span></td>
+                    <td><span>{{ model.hash }}</span></td>
+                    <td><span>{{ model.path }}</span></td>
+                    <td><span>{{ model.version }}</span></td>
+                    <td class="text-center">
+                        <a class="color-standart edit-model"
+                           href=""
+                           data-href="{{ path('edit_model', {'id': model.id}) }}"
+                           data-id="{{ model.id }}"
+                           data-active="{{ model.active ? '1' : '0' }}"
+                           data-toggle="modal"
+                           data-target=".editModelModal">
+                            <i class="fas fa-{{ model.active ? 'check' : 'times' }}"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% set vars = {
+        'route': 'homepage',
+        'filters': filters,
+        'currentPage': currentPage,
+        'maxPages': maxPages,
+    }
+    %}
+
+    {% include 'partial/paginator.html.twig' with vars %}
+
+    {% import 'models/partial/form.html.twig' as form %}
+    {% import 'models/partial/edit_model_form.html.twig' as editModelForm %}
+
+    {% set addModelVars = {
+        'class': 'addModelModal',
+        'formId': 'addModelForm',
+        'title': 'New model',
+        'content': form.inputs(),
+        'formAction': path('add_model'),
+        'submitTitle': 'Create'
+    } %}
+
+    {% set editModelVars = {
+        'class': 'editModelModal',
+        'formId': 'editModelForm',
+        'title': 'Change active',
+        'content': editModelForm.inputs(),
+        'submitTitle': 'Change'
+    } %}
+
+    {% include 'partial/modal.html.twig' with addModelVars %}
+    {% include 'partial/modal.html.twig' with editModelVars %}
+
+    <script>
+        $(document).ready(function () {
+            $('.select2-modal').select2({ width: '100%' });
+        })
+    </script>
+{% endblock %}

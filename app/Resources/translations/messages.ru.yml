@@ -1,0 +1,175 @@
+at.3dlk: 3Д лабораторный комплекс
+
+main.downloads: Загрузки
+main.documents: Документация
+main.faq: Вопросы и ответы
+main.contacts: Контакты
+main.results: Результаты
+main.license: Лицензии
+
+documents.intro: Введение
+documents.requirements: Системные требования
+documents.physical_model: Физическая модель
+documents.install: Установка
+documents.start_activate: Запуск и активация
+documents.scenarios: Номинации Конкурса
+documents.protocol: Протокол взаимодействия
+documents.vision: Техническое зрение
+documents.limits: Степени подвижности
+
+downloads.protocol.examples: Пример реализации управления
+downloads.sensors.examples: Пример реализации сенсоров
+downloads.3d.model: 3D модель F.E.D.O.R.
+downloads.extra: Сторонние программы
+
+results.requirements.list: Требования к предоставлению результатов
+
+Add: Добавить
+Edit: Редактировать
+Close: Закрыть
+Create: Создать
+Cancel: Отменить
+Save: Сохранить
+Choose: Выбрать
+Remove: Удалить
+Change: Изменить
+previous: назад
+next: далее
+Yes: Да
+No: Нет
+yes: да
+no: нет
+View: Просмотр
+Active: Активен
+Fullname: Имя
+Back to the list: Назад к списку
+
+Models: Модели
+Name: Название
+Type: Тип
+Bundle: Бандл
+Version: Версия
+Path: Путь
+Hash: Хэш
+
+Environment: Окружение
+robot: Робот
+environment: Окружение
+Condition: Состояние
+item: Предмет
+object: Объект
+Items: Предметы
+
+Operators: Операторы
+Operator: Оператор
+Operator fullname: ФИО оператора
+New operator: Новый оператор
+Edit operator: Редактировать оператора
+
+Experiments: Эксперименты
+Experiment: Эксперимент
+Are you sure you want to delete experiment?: Вы уверены, что хотите удалить эксперимент?
+Remove experiment: Удалить эксперимент
+Action: Действия
+Date start: Дата начала
+Date stop: Дата завершения
+Scene: Сцена
+The sum of attempts: Сумма попыток
+Duration: Продолжительность
+Results: Результаты
+Result: Результат
+Result reproduced: Результат воспроизведен
+Data transfer error!: Ошибка передачи данных!
+Was the attempt successful?: Была ли попытка успешной?
+Performance evaluation: Оценка деятельности
+Medical indicators: Медицинские показатели
+attempts: попытки
+Edit attempt: Редактировать попытку
+Are you sure you want to delete attempt?: Вы уверены, что хотите удалить попытку?
+Remove attempt: Удалить попытку
+Comments: Комментарии
+Time: Время
+Timezone: Часовой пояс
+Select timezone: Выберите часовой пояс
+Select indicator: Выберите показатель
+Add indicator: Добавить показатель
+Add evaluation: Добавить оценку
+Re-evaluate: Переоценить
+Indicator: Показатель
+Value: Значение
+New indicator: Новый показатель
+Edit indicator: Редактировать показатель
+Are you sure you want to delete indicator?: Вы уверены, что хотите удалить показатель?
+Remove indicator: Удалить показатель
+Quality Management: Качество управления
+Description: Описание
+Operator evaluation: Оценка оператора
+Is the process manageable?: Является ли процесс управляемым?
+Is adequate quality achieved?: Достигается ли "адекватное" (удовлетворит.) качество выполнения задачи с приемлемой?
+Is desired quality achieved?: Достигается ли "желаемое" качество выполнения задачи без доработки?
+
+Statistics: Статистика
+Here will display statistics data: Здесь будут отображены статистические данные
+
+New model: Добавить модель
+Edit model: Редактировать модель
+Change active: Изменить активность
+Show inactive: Показать неактивные
+Activate the model?: Активировать модель?
+Deactivate the model?: Деактивировать модель?
+
+Settings: Настройки
+Settings FTP: Настройки FTP
+Settings user: Настройки пользователя
+Host: Хост
+User: Пользователь
+Password: Пароль
+
+New model was sucessfully added!: Новая модель была успешно добавлена!
+Error occured file loading new model!: Во время загрузжи произошла ошибка!
+
+Model archive: Архив с моделью
+
+Significant shortcomings: Существенные недостатки
+Very undesirable, but acceptable shortcomings: Очень нежелательные, но приемлемые недостатки
+Medium undesirable shortcomings: Средне нежелательные недостатки
+Inessential, but annoying shortcomings: Несущественные, но раздражающие недостатки
+Satisfactory, unimportant unpleasant shortcomings: Удовлетворительное, несущественные неприятные недостатки
+Good, insignificant shortcomings: Хорошее, несущественные недостатки
+Excellent, high quality: Превосходное, высокое качество
+Control can be lost when performing some tasks: Управление может быть потеряно при выполнении некоторых заданий
+Adequate quality is not achieved with the maximum possible compensation by the operator of negative dynamic properties of ARTS: Адекватное качество не достигается при максимально возможной компенсации оператором негативных динамических свойств АРТС
+Management requires significant compensation by the operator of the negative dynamic properties of ARTS: Для управления требуется значительная компенсация оператором негативных динамический свойств АРТС
+To maintain management, the greatest possible compensation is required: Для сохранения управления требуется максимально возможная компенсация оператором негативных динамических свойств АРТС
+Adequate quality is achieved with moderate compensation: Адекватное качество достигается при умеренной компенсации оператором негативных динамических свойств АРТС
+Adequate quality is achieved with significant compensation: Адекватное качество достигается при значительной компенсации оператором негативных динамических свойств АРТС
+Adequate quality is achieved with the greatest possible compensation: Адекватное качество достигается при максимально возможной компенсации оператором негативных динамических свойств АРТС
+The desired quality is achieved without compensation: Желаемое качество достигается без компенсации оператором негативных динамических свойств АРТС
+The desired quality is achieved with minimal compensation: Желаемое качество достигается при минимальной компенсации оператором негативных динамических свойств АРТС
+
+Settings UKT: Настройки УКТ
+
+Left hand: Левая рука
+Right hand: Правая рука
+
+L.ShoulderF: Плечо вперед
+R.ShoulderF: Плечо вперед
+L.ShoulderS: Плечо в сторону
+R.ShoulderS: Плечо в сторону
+L.ElbowR: Вращение предплечья
+R.ElbowR: Вращение предплечья
+L.Elbow: Сгиб локтя
+R.Elbow: Сгиб локтя
+L.WristR: Кисть вращение
+R.WristR: Кисть вращение
+L.WristS: Кисть вбок
+R.WristS: Кисть вбок
+L.WristF: Кисть вперед
+R.WristF: Кисть вперед
+
+Gravity coefficient: Коэффициент обезвешивания
+Friction coefficient: Коэффициент трения
+
+Extension Shoulder: Удлинение плеча
+Extension Forearm: Удлинение предплечья
+Parametrs extension: Параметры удлинения

@@ -1,0 +1,45 @@
+{% macro inputs(items) %}
+    <input type="hidden" class="form-control model-id" value="" name="environment[id]">
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-primary">
+
+            <tr>
+                <th class="text-capitalize"><strong>ID</strong></th>
+                <th><strong>{{ 'Name' | trans() }}</strong></th>
+                <th class="text-capitalize text-center"><strong>{{ 'Condition' | trans() }}</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set id = 1 %}
+            {% for item in items %}
+                <tr>
+                    <td><span>{{ id }}</span></td>
+                    <td><span>{{ item.name }}</span></td>
+                    <td class="text-center column-100-px"><input class="env-item item-id-{{ item.id }}" type="checkbox" value="{{ item.id }}" name="items[]"></td>
+                </tr>
+                {% set id = id + 1 %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.add-items').bind('click', function () {
+                var selectModelsForm = $('#selectModelsForm');
+                selectModelsForm.attr('action', $(this).data('href'));
+                selectModelsForm.find('.environment-id').val($(this).data('id'));
+
+                $('.env-item').removeAttr('checked');
+
+                let items = $(this).data('items');
+
+                for (let item in items) {
+                    $('.item-id-' + items[item]).attr('checked', 'checked');
+                }
+            });
+        });
+    </script>
+
+{% endmacro %}

@@ -1,0 +1,259 @@
+@font-face {
+    font-family: Scada;
+    src: url(../webfonts/Scada.ttf);
+}
+@font-face {
+    font-family: ScadaBold;
+    src: url(../webfonts/Scada_bold.ttf);
+}
+@font-face {
+    font-family: ScadaBoldItalic;
+    src: url(../webfonts/Scada_bold_italic.ttf);
+}
+@font-face {
+    font-family: ScadaItalic;
+    src: url(../webfonts/Scada_italic.ttf);
+}
+body {
+    background-color: #FFFFFF;
+    font-family: Scada, sans-serif;
+    color: #6C6C6C;
+}
+.wrapper {
+    width: 100%;
+}
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+#side-menu {
+    position: fixed;
+    width: 126px;
+    float: left;
+    background-color: #E5E5E5;
+    height: 100vh;
+    padding-top: 28px;
+}
+.sidebar ul li img {
+    width: 44px;
+}
+.nav .nav-item {
+    text-align: center;
+}
+.nav .nav-item a {
+    filter: grayscale(100%);
+    font-size: 14px;
+    font-family: Scada, sans-serif;
+    color: #6C6C6C;
+}
+.nav .nav-item a:hover {
+    filter: grayscale(0);
+    color: #2D9CDB;
+}
+.nav .nav-item .active {
+    background: none;
+    color: #2D9CDB;
+    filter: grayscale(0);
+}
+.nav .nav-item img {
+    margin-bottom: 12px;
+}
+h1 {
+    font-family: ScadaBold, sans-serif;
+}
+.page-wrapper {
+    padding-top: 26px;
+    margin-left: -15px;
+}
+.logout-wrapper {
+    padding-top: 36px;
+    margin-right: -30px;
+}
+.table .thead-primary th {
+    background-color: rgba(45, 156, 219, 0.2);
+}
+.table thead th {
+    border: none;
+}
+.table td, .table th {
+    border: none;
+}
+.container-fluid .content .row {
+    padding-left: 34px;
+    padding-right: 34px;
+}
+.container-fluid .modal-body .row {
+    padding-left: 0;
+    padding-right: 0;
+}
+.container-fluid .main-row {
+    padding-left: 126px;
+}
+.panel .form-group .form-control {
+    border: none;
+    background-color: #F2F2F2;
+    color: #6C6C6C;
+    width: 100%;
+    margin-right: 14px;
+}
+.panel {
+    width: 100%;
+    padding: 15px 0;
+}
+.btn {
+    border: none;
+    border-radius: 0;
+}
+.btn-size {
+    width: 33px;
+}
+.btn-primary {
+    background-color: rgba(45, 156, 219, 0.7);
+    color: #fff;
+}
+.btn-primary:hover {
+    background-color: #6593bd;
+}
+.btn-default {
+    background-color: #fff;
+    color: #6C6C6C;
+    border: 1px solid #BDBDBD;
+    border-radius: 0;
+}
+.btn-default:hover {
+    background-color: #dedede;
+}
+.page-link {
+    color: #6C6C6C;
+    border: 1px solid #6C6C6C;
+    margin-left: 4px;
+    padding: 7px 15px;
+}
+.page-link:hover {
+    color: #6C6C6C;
+    border: 1px solid #6C6C6C;
+}
+.page-item.disabled .page-link {
+    color: #BDBDBD;
+    border-color: #BDBDBD;
+}
+.page-item.active .page-link {
+    color: #BDBDBD;
+    border-color: #BDBDBD;
+    background-color: #fff;
+}
+.page-item:last-child .page-link {
+    border-radius: 0;
+}
+.page-item:first-child .page-link {
+    border-radius: 0;
+}
+.modal-header .close {
+    padding: 0;
+    margin: -2px 0 0 0;
+}
+form .form-group .form-control {
+    border: 1px solid #BDBDBD;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 0;
+}
+.logout-wrapper .dropdown .dropdown-toggle::after {
+    content: none;
+}
+.logout-wrapper .dropdown .nav-link {
+    padding: 0;
+    color: #6C6C6C;
+}
+.dropdown {
+    list-style-type: none;
+}
+.dropdown .dropdown-toggle i {
+    margin-left: 20px;
+}
+.dropdown-item {
+    color: #6C6C6C;
+}
+.dropdown-item:hover {
+    background-color: #e9ecef;
+    color: #6C6C6C;
+}
+.h1, h1 {
+   font-size: 30px;
+}
+.authentication {
+    border: 1px solid #BDBDBD;
+    padding: 15px 47px;
+    margin-top: 48px;
+}
+.authentication-title {
+    margin-bottom: 26px;
+}
+.no-wrap {
+    white-space: nowrap;
+}
+.breadcrumb {
+    background-color: inherit;
+    padding: 0;
+}
+.breadcrumb li a {
+    color: #6C6C6C;
+    text-decoration: none;
+}
+.breadcrumb li a:hover {
+    color: #2D9CDB;
+}
+.nav-tabs {
+    border-bottom: none;
+    width: 100%;
+}
+.nav .nav-item a {
+    font-size: 16px;
+}
+.tabs .nav-item a:hover {
+    font-size: 16px;
+    border: none;
+    border-bottom: 4px solid #2D9CDB;
+}
+.tabs .nav-item .active {
+    color: #2D9CDB;
+    border: none;
+    border-bottom: 4px solid #2D9CDB;
+}
+.tab-content {
+    width: 100%;
+}
+.nav-tabs .nav-link {
+    border: none;
+    border-radius: 0;
+}
+.row .line {
+    margin-top: -3px;
+    width: 100%;
+    border-bottom: 4px solid rgba(45, 156, 219, 0.2);
+}
+.line-height {
+    line-height: 2;
+}
+input[type=text] {
+    border-radius: 0;
+}
+.color-standart {
+    color: #6C6C6C;
+}
+.color-standart:hover {
+    color: #6C6C6C;
+}
+.column-100-px {
+    width: 100px;
+}
+label {
+    margin-bottom: 0;
+}
+.title-joints {
+    color: #2D9CDB;
+}

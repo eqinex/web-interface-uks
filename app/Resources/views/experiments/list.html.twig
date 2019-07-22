@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Experiments' | trans() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="panel">
+            <form class="form-inline filter-form" method="get" action="{{ path('experiments_list') }}">
+                <div class="form-group filter">
+                    <select class="form-control" name="filters[operator]">
+                        <option value="">{{ 'Operator' | trans() }}</option>
+                        {% for operator in operators %}
+                            <option {% if filters.operator is defined and filters.operator == operator.id %}selected{% endif %} value="{{ operator.id }}">
+                                {{ operator.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group filter">
+                    <select class="form-control" name="filters[scene]">
+                        <option value="">{{ 'Scene' | trans() }}</option>
+                        {% for scene in scenes %}
+                            <option {% if filters.scene is defined and filters.scene == scene.id %}selected{% endif %} value="{{ scene.id }}">
+                                {{ scene.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-primary">
+
+            <tr>
+                <th class="text-capitalize"><strong>ID</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Scene' | trans() }}</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Operator' | trans() }}</strong></th>
+                <th><strong>{{ 'Date start' | trans() }}</strong></th>
+                <th><strong>{{ 'Date stop' | trans() }}</strong></th>
+                <th></th>
+                <th class="text-capitalize text-center column-100-px"><strong>{{ 'Action' | trans() }}</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set timezone = timezoneUser is defined ? timezoneUser : 'UTC' %}
+            {% for experiment in experiments %}
+                <tr>
+                    <td><span>{{ experiment.id }}</span></td>
+                    <td><span>{{ experiment.scene.name }}</span></td>
+                    <td><span>{{ experiment.operator.name }}</span></td>
+                    <td><span>
+                            {{ experiment.dateStart | date('d-m-Y H:i:s', timezone) }}
+                        </span>
+                    </td>
+                    <td><span>
+                            {{ experiment.dateStop ? experiment.dateStop | date('d-m-Y H:i:s', timezone) : '-'}}
+                        </span>
+                    </td>
+                    <td>
+                        {% if experiment.logVoice is not null %}
+                            <a class="btn btn-success btn-sm btn-size export-voice"
+                               href="{{ path('export_voice', {'id': experiment.id}) }}"
+                            ><i class="fas fa-music"></i></a>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm" href="{{ path('experiments_details', {'id': experiment.id}) }}"><i class="fas fa-eye"></i></a>
+                        <a class="btn btn-danger btn-sm btn-size remove-experiment"
+                           href=""
+                           data-href="{{ path('remove_experiment', {'id': experiment.id}) }}"
+                           data-id="{{ experiment.id }}"
+                           data-toggle="modal"
+                           data-target=".removeExperimentModal"
+                        ><i class="fas fa-times"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% set vars = {
+        'route': 'experiments_list',
+        'filters': filters,
+        'currentPage': currentPage,
+        'maxPages': maxPages,
+    }
+    %}
+
+    {% include 'partial/paginator.html.twig' with vars %}
+
+    {% import 'experiments/partial/remove_experiment_form.html.twig' as removeExperimentForm %}
+
+    {% set removeExperimentVars = {
+        'class': 'removeExperimentModal',
+        'formId': 'removeExperimentForm',
+        'title': 'Remove experiment',
+        'content': removeExperimentForm.inputs(),
+        'submitTitle': 'Remove'
+    }
+    %}
+
+    {% include 'partial/modal.html.twig' with removeExperimentVars %}
+
+{% endblock %}

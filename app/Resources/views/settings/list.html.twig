@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Settings' | trans() }}{% endblock %}
+
+{% block body %}
+    <div class="panel"></div>
+    <form action="{{ path("save_settings") }}" method="post">
+        {% for conf in configurations %}
+
+            <div class="row form-group align-items-center col-xl-6">
+                <div class="col-xl-5">
+                    <h5><span>{{ conf.key | trans() ~ ': ' }}</span></h5>
+                </div>
+                <div class="col-xl-7">
+                    <input type="text" name="configuration[{{ conf.key }}]"class="form-control float-right" value="{{ conf.value }}">
+                </div>
+            </div>
+
+        {% endfor %}
+        <div class="row col-xl-6">
+            <div class="col-xl-12">
+                <button type="submit" class="btn btn-primary float-right">{{ 'Save' | trans() }}</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

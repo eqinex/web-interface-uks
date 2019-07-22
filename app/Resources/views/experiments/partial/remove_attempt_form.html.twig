@@ -1,0 +1,14 @@
+{% macro inputs() %}
+    <input type="hidden" class="form-control experiment-id" value="" name="attempt[id]">
+    <div class="text-center">{{ "Are you sure you want to delete attempt?" | trans() }}</div>
+
+    <script>
+        $(document).ready(function(){
+            $('.remove-attempt').bind('click', function() {
+                var removeAttemptForm = $('#removeAttemptForm');
+                removeAttemptForm.attr('action', $(this).data('href'));
+                removeAttemptForm.find('.attempt-id').val($(this).data('id'));
+            });
+        });
+    </script>
+{% endmacro %}

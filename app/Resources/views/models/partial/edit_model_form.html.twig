@@ -1,0 +1,29 @@
+{% macro inputs() %}
+    <input type="hidden" class="form-control model-id" value="" name="model[id]">
+    <div class="text-center activate-model">{{ 'Activate the model?' | trans()  }}</div>
+    <div class="text-center deactivate-model">{{ 'Deactivate the model?' | trans()  }}</div>
+    <script>
+        $(document).ready(function() {
+            $('.activate-model').hide();
+            $('.deactivate-model').hide();
+            $('.edit-model').bind('click', function () {
+                var editModelForm = $('#editModelForm');
+                editModelForm.attr('action', $(this).data('href'));
+                editModelForm.find('.model-id').val($(this).data('id'));
+                editModelForm.find('.model-active').val($(this).data('active'));
+
+                if ($(this).data('active')) {
+                    $('.activate-model').hide();
+                    $('.deactivate-model').show();
+                } else {
+                    $('.deactivate-model').hide();
+                    $('.activate-model').show();
+                }
+
+                $('.select2-modal').select2({ width: '100%' });
+            });
+
+            $('.select2-modal').select2({ width: '100%' });
+        });
+    </script>
+{% endmacro %}

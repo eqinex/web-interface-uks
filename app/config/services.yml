@@ -1,0 +1,42 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+    security.acl.permission.map:
+          class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+
+services:
+#    app.admin.object:
+#          class: AppBundle\Admin\ObjectAdmin
+#          arguments: [~, AppBundle\Entity\Object, SonataAdminBundle:CRUD]
+#          tags:
+#              - { name: sonata.admin, manager_type: orm, group: admin, label: Object }
+#    app.admin.camera:
+#            class: AppBundle\Admin\CameraAdmin
+#            arguments: [~, AppBundle\Entity\Camera, SonataAdminBundle:CRUD]
+#            tags:
+#                - { name: sonata.admin, manager_type: orm, group: admin, label: Camera }
+#
+#    app.admin.environment:
+#        class: AppBundle\Admin\EnvironmentAdmin
+#        arguments: [~, AppBundle\Entity\Environment, SonataAdminBundle:CRUD]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: admin, label: Environment }
+#
+#    app.admin.robot:
+#        class: AppBundle\Admin\RobotAdmin
+#        arguments: [~, AppBundle\Entity\Robot, SonataAdminBundle:CRUD]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: admin, label: Robot }
+#
+#    app.admin.scene:
+#        class: AppBundle\Admin\SceneAdmin
+#        arguments: [~, AppBundle\Entity\Scene, SonataAdminBundle:CRUD]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: admin, label: Scene }
+#
+#    app.admin.scene_object:
+#        class: AppBundle\Admin\SceneObjectAdmin
+#        arguments: [~, AppBundle\Entity\SceneObject, SonataAdminBundle:CRUD]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: admin, label: SceneObject }
+

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-12">
+        <h2 class="mb-3" style='display: none;'>{% block title %}{{ 'main.license' | trans() }}{% endblock %}</h2>
+
+        <table class="table">
+            <thead class="thead-default">
+            <tr>
+                <th>Симулятор</th>
+                <th>Ключ</th>
+                <th>Активации</th>
+                <th>исп./макс.</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for license in licenses %}
+                <tr>
+                    <td scope="row">{{ license.simulator }}</td>
+                    {% if license.enabled %}
+                        <th scope="row">{{ license.registrationKey }}</th>
+                    {% else %}
+                        <th scope="row"><strike>{{ license.registrationKey }}</strike></th>
+                    {% endif %}
+                    <td>
+                        {% for activation in license.activations %}
+                            <div class="m-b-3">
+                                <b>{{ activation.device }}</b><br />
+                                {{ activation.operatingSystem }}<br />
+                                {{ activation.graphics }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                    <td>{{ license.activations | length }}/{{ license.maxActivationsAmount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

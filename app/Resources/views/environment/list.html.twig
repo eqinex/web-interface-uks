@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Environment' | trans() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="panel"></div>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-primary">
+
+            <tr>
+                <th class="text-capitalize"><strong>ID</strong></th>
+                <th><strong>{{ 'Name' | trans() }}</strong></th>
+                <th class="text-capitalize"><strong>{{ 'Models' | trans() }}</strong></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for environment in environments %}
+                    <tr>
+                        <td><span>{{ environment.id }}</span></td>
+                        <td><span>{{ environment.name }}</span></td>
+                        <td>
+                            {{ environment.items | join(', ') }}
+                        </td>
+                        <td class="text-right">
+                            <a class="btn btn-primary btn-sm btn-size add-items"
+                               href=""
+                               data-href="{{ path('add_items', {'id': environment.id}) }}"
+                               data-id="{{ environment.id }}"
+                               data-items="{{ environment.getItemsIds() | json_encode }}"
+                               data-toggle="modal"
+                               data-target=".selectModels"
+                            ><i class="fas fa-list-ul"></i></a>
+                            <a class="btn btn-primary btn-sm btn-size edit-settings"
+                               href=""
+                               {% if environment.environmentsOde is not null %}
+                                   data-href="{{ path('edit_settings_environment', {'id': environment.id}) }}"
+                                   data-id="{{ environment.id }}"
+                                   data-cfm="{{ environment.environmentsOde.cfm }}"
+                                   data-core="{{ environment.environmentsOde.core }}"
+                                   data-erp="{{ environment.environmentsOde.erp }}"
+                                   data-gravity="{{ environment.environmentsOde.gravity }}"
+                                   data-iterations="{{ environment.environmentsOde.iterations }}"
+                                   data-sps="{{ environment.environmentsOde.sps }}"
+                                   data-step-rate="{{ environment.environmentsOde.stepRate }}"
+                                   data-step-time="{{ environment.environmentsOde.stepTime }}"
+                               {% else %}
+                                   data-href="{{ path('edit_settings_environment', {'id': environment.id}) }}"
+                                   data-id="{{ environment.id }}"
+                                   data-cfm="{{ defaultEnvironmentOde.cfm }}"
+                                   data-core="{{ defaultEnvironmentOde.core }}"
+                                   data-erp="{{ defaultEnvironmentOde.erp }}"
+                                   data-gravity="{{ defaultEnvironmentOde.gravity }}"
+                                   data-iterations="{{ defaultEnvironmentOde.iterations }}"
+                                   data-sps="{{ defaultEnvironmentOde.sps }}"
+                                   data-step-rate="{{ defaultEnvironmentOde.stepRate }}"
+                                   data-step-time="{{ defaultEnvironmentOde.stepTime }}"
+                               {% endif %}
+                               data-toggle="modal"
+                               data-target=".settingsEnvironment"
+                            ><i class="fas fa-cog"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% set vars = {
+        'route': 'environment_list',
+        'filters': filters,
+        'currentPage': currentPage,
+        'maxPages': maxPages,
+    }
+    %}
+
+    {% include 'partial/paginator.html.twig' with vars %}
+
+    {% import 'environment/partial/select_models_form.html.twig' as selectModelsForm %}
+    {% import 'environment/partial/settings_environment.html.twig' as settingsEnvironmentForm %}
+
+    {% set selectModelsVars = {
+        'class': 'selectModels',
+        'formId': 'selectModelsForm',
+        'title': 'Items',
+        'content': selectModelsForm.inputs(items),
+        'submitTitle': 'Save'
+    } %}
+
+    {% set settingsEnvironmentVars = {
+        'class': 'settingsEnvironment',
+        'formId': 'settingsEnvironmentForm',
+        'title': 'Settings',
+        'content': settingsEnvironmentForm.inputs(),
+        'submitTitle': 'Save'
+    } %}
+
+    {% include 'partial/modal.html.twig' with selectModelsVars %}
+    {% include 'partial/modal.html.twig' with settingsEnvironmentVars %}
+
+{% endblock %}

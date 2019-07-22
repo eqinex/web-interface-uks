@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-12">
+        <h2 class="mb-3" style='display: none;'>{% block title %}{{ 'documents.install' | trans() }}{% endblock %}</h2>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+        <ol class="mb-5">
+            <li>
+                Скачайте последнюю версию программы Симулятор-У в разделе
+                <a href="{{ path('main_downloads') }}">{{ 'main.downloads' | trans() }}.</a>
+            </li>
+            <li>
+                Запустите файл установки <strong>simulator.exe</strong> программы Симулятор-У.
+            </li>
+            <li>
+                <div class="mb-3">Подтвердите запуск файла установки.</div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/step_1.png') }}"  height="250px;"/>
+                </div>
+            </li>
+            <li>
+                <div class="mb-3">Выберите язык установки.</div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/step_2.png') }}"  height="150px;"/>
+                </div>
+            </li>
+            <li>
+                <div class="mb-3">
+                    Прочтите условия лицензионного соглашения. <br />
+                    Для продолжения установки необходимо принять условия лицензионного соглашения.
+                </div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/step_3.png') }}"  height="400px;"/>
+                </div>
+            </li>
+            <li>
+                <div class="mb-3">
+                    Создание дополнительной иконки на рабочем столе.
+                </div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/step_4.png') }}"  height="400px;"/>
+                </div>
+            </li>
+            <li>
+                <div class="mb-3">
+                    Нажмите кнопку "Установить", чтобы продолжить установку.
+                </div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/step_5.png') }}"  height="400px;"/>
+                </div>
+            </li>
+            <li>
+                <div class="mb-3">
+                    Нажмите кнопку "Завершить", чтобы закрыть окно установки и запустить программу.
+                </div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/step_6.png') }}"  height="400px;"/>
+                </div>
+            </li>
+            <li>
+                <div class="mb-5">
+                    <a href="{{ path('documents_start_activate') }}">Первый запуск и активация программы</a>
+                </div>
+            </li>
+        </ol>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+    </div>
+{% endblock %}

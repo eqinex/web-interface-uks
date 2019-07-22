@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-10">
+        <h2 class="mb-3">{{ 'documents.start_activate' | trans() }}</h2>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+        <ol>
+            <li>
+
+                <div class="mb-3">
+                    Запустите <a href="{{ path('documents_install') }}">установленную</a> программу Симулятор-У от
+                    имени администратора.
+                </div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/run_1.png') }}"  height="350px;" />
+                </div>
+            </li>
+            <li>
+                <div class="mb-3">Введите регистрационный ключ.</div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/run_2.png') }}"  height="350px;" />
+                </div>
+            </li>
+            <li>
+                <div class="mb-3">Экран выбора <a href="{{ path('documents_scenarios') }}">сценариев</a>.</div>
+                <div class="mb-3">
+                    <img src="{{ asset('images/run_3.png') }}"  height="350px;"/>
+                </div>
+            </li>
+
+        </ol>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+    </div>
+{% endblock %}

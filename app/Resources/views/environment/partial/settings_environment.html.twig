@@ -1,0 +1,80 @@
+{% macro inputs() %}
+    <input type="hidden" class="form-control environment-id" value="" name="environment[id]">
+    <div class="row form-group align-items-center">
+            <div class="col-2">
+                <label class="control-label">Cfm</label>
+            </div>
+           <div class="col-3">
+               <input type="text" class="form-control environment-cfm" value="" name="settings[cfm]" required>
+           </div>
+        <div class="col-2">
+            <label class="control-label">Core</label>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control environment-core" value="" name="settings[core]" required>
+        </div>
+    </div>
+
+    <div class="row form-group align-items-center">
+        <div class="col-2">
+            <label class="control-label">Erp</label>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control environment-erp" value="" name="settings[erp]" required>
+        </div>
+        <div class="col-2">
+            <label class="control-label">Gravity</label>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control environment-gravity" value="" name="settings[gravity]" required>
+        </div>
+    </div>
+
+    <div class="row form-group align-items-center">
+        <div class="col-2">
+            <label class="control-label">Iterations</label>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control environment-iterations" value="" name="settings[iterations]" required>
+        </div>
+        <div class="col-2">
+            <label class="control-label">Sps</label>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control environment-sps" value="" name="settings[sps]" required>
+        </div>
+    </div>
+
+    <div class="row form-group align-items-center">
+        <div class="col-2">
+            <label class="control-label">StepRate</label>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control environment-step-rate" value="" name="settings[stepRate]" required>
+        </div>
+        <div class="col-2">
+            <label class="control-label">StepTime</label>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control environment-step-time" value="" name="settings[stepTime]" required>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.edit-settings').bind('click', function () {
+                var settingsEnvironmentForm = $('#settingsEnvironmentForm');
+                settingsEnvironmentForm.attr('action', $(this).data('href'));
+                settingsEnvironmentForm.find('.environment-id').val($(this).data('id'));
+                settingsEnvironmentForm.find('.environment-cfm').val($(this).data('cfm'));
+                settingsEnvironmentForm.find('.environment-core').val($(this).data('core'));
+                settingsEnvironmentForm.find('.environment-erp').val($(this).data('erp'));
+                settingsEnvironmentForm.find('.environment-gravity').val($(this).data('gravity'));
+                settingsEnvironmentForm.find('.environment-iterations').val($(this).data('iterations'));
+                settingsEnvironmentForm.find('.environment-sps').val($(this).data('sps'));
+                settingsEnvironmentForm.find('.environment-step-rate').val($(this).data('stepRate'));
+                settingsEnvironmentForm.find('.environment-step-time').val($(this).data('stepTime'));
+            });
+        });
+    </script>
+{% endmacro %}

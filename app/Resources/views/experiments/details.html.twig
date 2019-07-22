@@ -1,0 +1,619 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Experiment' | trans() ~ ' ' ~ experiment.id }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="panel">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{ path('experiments_list') }}">
+                        <i class="fas fa-angle-left"></i>
+                        <span>{{ 'Back to the list' | trans() }}</span>
+                    </a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    {% set timezone = timezoneUser is defined ? timezoneUser : 'UTC' %}
+    <div class="row">
+        <div class="form-group no-wrap">
+            <div class="col-md-4 line-height">
+                <strong>{{ 'Scene' | trans() ~ ': ' }}</strong><span>{{ experiment.scene }}</span>
+            </div>
+            <div class="col-md-4 no-wrap line-height">
+                <strong>{{ 'Operator' | trans() ~ ': ' }}</strong><span>{{ experiment.operator }}</span>
+            </div>
+        </div>
+        <div class="form-group no-wrap">
+            <div class="col-md-4 line-height">
+                <strong>{{ 'Date start' | trans() ~ ': ' }}</strong>
+                <span>{{ experiment.dateStart | date('d-m-Y H:i:s', timezone) }}
+                </span>
+            </div>
+            <div class="col-md-4 no-wrap line-height">
+                <strong>{{ 'Date stop' | trans() ~ ': ' }}</strong>
+                <span>{{ experiment.dateStop | date('d-m-Y H:i:s', timezone) }}
+                </span>
+            </div>
+        </div>
+        <div class="form-group no-wrap">
+            <div class="col-md-4 line-height">
+                {% set totalTry = 0 %}
+                {% set totalSumTime = 0 %}
+                {% for attempt in attempts %}
+                    {% set totalTry = totalTry + 1 %}
+                    {% set firstTime = attempt.timeInterval() %}
+                    {% set secondTime = 0 %}
+                    {% set totalSumTime = attempt.sumTime(totalSumTime, attempt.sumTime(firstTime, secondTime)) %}
+                {% endfor %}
+                <strong>{{ 'The sum of attempts' | trans() ~ ': ' }}</strong><span>{{ totalTry }}</span>
+            </div>
+            <div class="col-md-4 no-wrap line-height">
+                <strong>{{ 'Duration' | trans() ~ ': ' }}</strong><span>{{ totalSumTime }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ul class="nav nav-tabs tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#results" role="tab" data-toggle="tab"><span>{{ 'Results' | trans() }}</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#performance" role="tab" data-toggle="tab"><span>{{ 'Performance evaluation' | trans() }}</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#indicators" role="tab" data-toggle="tab"><span>{{ 'Medical indicators' | trans() }}</span></a>
+            </li>
+        </ul>
+        <div class="line"></div>
+    </div>
+
+    <div class="row">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane show active" id="results">
+                <table class="table table-striped">
+                    <thead class="thead-primary">
+                    <tr>
+                        <th><strong>{{ '№ ' ~ 'attempts' | trans() }}</strong></th>
+                        <th><strong>{{ 'Date start' | trans() }}</strong></th>
+                        <th><strong>{{ 'Date stop' | trans() }}</strong></th>
+                        <th><strong>{{ 'Time' | trans() }}</strong></th>
+                        <th class="text-center"><strong>{{ 'Was the attempt successful?' | trans() }}</strong></th>
+                        <th><strong>{{ 'Comments' | trans() }}</strong></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set try = 1 %}
+                    {% for attempt in attempts %}
+                        <tr>
+                            <td><span>{{ try }}</span></td>
+                            <td>
+                                <span>{{ attempt.startAt | date('d-m-Y H:i:s', timezone) }}</span>
+                            </td>
+                            <td>
+                                <span>{{ attempt.endAt | date('d-m-Y H:i:s', timezone) }}</span>
+                            </td>
+                            <td><span>{{ attempt.timeInterval() }}</span></td>
+                            <td class="text-center"><span>{{ attempt.success is not null ? (attempt.success ? 'Yes' | trans() : 'No' | trans()) : '-' }}</span></td>
+                            <td><span>{{ attempt.description is not null ? attempt.description : '-' }}</span></td>
+                            <td class="text-right">
+                                <a class="btn btn-primary btn-sm btn-size edit-attempt"
+                                   href=""
+                                   data-href="{{ path('edit_attempt', {'id': experiment.id, 'attemptId': attempt.id}) }}"
+                                   data-id="{{ attempt.id }}"
+                                   data-success="{{ attempt.success ? '1' : '0' }}"
+                                   data-description="{{ attempt.description }}"
+                                   data-toggle="modal"
+                                   data-target=".editAttemptModal"
+                                ><i class="fas fa-edit"></i></a>
+
+                                <button class="btn btn-success btn-sm btn-size reproduce-result"
+                                        data-transform-host="{{ config[0].value }}"
+                                        data-transform-port="{{ config[1].value }}"
+                                        data-experiment="{{ experiment.id }}"
+                                        data-path="{{ attempt.logTransform }}"
+                                ><i class="fas fa-play"></i></button>
+
+                                <a class="btn btn-danger btn-sm btn-size remove-attempt"
+                                   href=""
+                                   data-href="{{ path('remove_attempt', {'id': experiment.id, 'attemptId': attempt.id}) }}"
+                                   data-id="{{ attempt.id }}"
+                                   data-toggle="modal"
+                                   data-target=".removeAttemptModal"
+                                ><i class="fas fa-times"></i></a>
+
+                            </td>
+                        </tr>
+                        {% set try = try + 1 %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="performance">
+                <form action="{{ path('add_evaluation', {'id': experiment.id}) }}" method="post">
+                    <div class="panel clearfix">
+                        <button type="submit" class="btn btn-primary float-right">{{ controllable.value is defined ? 'Re-evaluate' | trans() : 'Add evaluation' | trans() }}</button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span class="col-md-12">{{ '1. ' ~ 'Is the process manageable?' | trans() }}</span>
+                            <input type="hidden" name="evaluation[controllable]" value="0">
+                            <input type="hidden" name="evaluation[satisfiable_quality]" value="0">
+                            <input type="hidden" name="evaluation[desired_quality]" value="0">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="radio" class="controllable-check-true" name="controllable-check" value="2" {{ controllable.value is defined and controllable.value == 0 ? 'checked' : '' }}><span>{{ 'Yes' | trans() }}</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="radio" class="controllable-check-false" name="controllable-check" value="1" {{ controllable.value is defined and controllable.value != 0 ? 'checked' : '' }}><span>{{ 'No' | trans() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped controllable">
+                        <thead class="thead-primary">
+                        <tr>
+                            <th><strong>{{ 'Quality Management' | trans() }}</strong></th>
+                            <th><strong>{{ 'Description' | trans() }}</strong></th>
+                            <th class="text-center"><strong>{{ 'Operator evaluation' | trans() }}</strong></th>
+                        </tr>
+                        </thead>
+                            <tr>
+                                <td>
+                                    <span>{{ 'Significant shortcomings' | trans() }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ 'Control can be lost when performing some tasks' | trans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="radio" class="controllable-value" name="evaluation[controllable]" value="10">
+                                    <span> 10</span>
+                                </td>
+                            </tr>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-6 satisfiable-question">
+                        <div class="form-group">
+                            <span class="col-md-12">{{ '2. ' ~ 'Is adequate quality achieved?' | trans() }}</span>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="radio" class="satisfiable-check-true" name="satisfiable-check" value="2" {{ satisfiableQuality.value is defined and satisfiableQuality.value == 0 ? 'checked' : '' }}><span>{{ 'Yes' | trans() }}</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="radio" class="satisfiable-check-false" name="satisfiable-check" value="1" {{ satisfiableQuality.value is defined and satisfiableQuality.value != 0 ? 'checked' : '' }}><span>{{ 'No' | trans() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped satisfiable">
+                        <thead class="thead-primary">
+                        <tr>
+                            <th><strong>{{ 'Quality Management' | trans() }}</strong></th>
+                            <th><strong>{{ 'Description' | trans() }}</strong></th>
+                            <th class="text-center"><strong>{{ 'Operator evaluation' | trans() }}</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span>{{ 'Significant shortcomings' | trans() }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ 'Adequate quality is not achieved with the maximum possible compensation by the operator of negative dynamic properties of ARTS' | trans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="radio" class="satisfiable-value-7" name="evaluation[satisfiable_quality]" value="7">
+                                    <span> 7</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{ 'Significant shortcomings' | trans() }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ 'Management requires significant compensation by the operator of the negative dynamic properties of ARTS' | trans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="radio" class="satisfiable-value-8" name="evaluation[satisfiable_quality]" value="8">
+                                    <span> 8</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{ 'Significant shortcomings' | trans() }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ 'To maintain management, the greatest possible compensation is required' | trans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="radio" class="satisfiable-value-9" name="evaluation[satisfiable_quality]" value="9">
+                                    <span> 9</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-6 desired-question">
+                        <div class="form-group">
+                            <span class="col-md-12">{{ '3. ' ~ 'Is desired quality achieved?' | trans() }}</span>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="radio" class="desired-check-true" name="desired-check" value="2"
+                                            {{ desiredQuality.value is defined and (desiredQuality.value == 1 or desiredQuality.value == 2 or desiredQuality.value == 3) ? 'checked' : '' }}
+                                    ><span>{{ 'Yes' | trans() }}</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="radio" class="desired-check-false" name="desired-check" value="1"
+                                            {{ desiredQuality.value is defined and (desiredQuality.value == 4 or desiredQuality.value == 5 or desiredQuality.value == 6) ? 'checked' : '' }}
+                                    ><span>{{ 'No' | trans() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped desired-quality-yes">
+                        <thead class="thead-primary">
+                        <tr>
+                            <th><strong>{{ 'Quality Management' | trans() }}</strong></th>
+                            <th><strong>{{ 'Description' | trans() }}</strong></th>
+                            <th><strong>{{ 'Operator evaluation' | trans() }}</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <span>{{ 'Excellent, high quality' | trans() }}</span>
+                            </td>
+                            <td>
+                                <span>{{ 'The desired quality is achieved without compensation' | trans() }}</span>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" class="desired-value-1" name="evaluation[desired_quality]" value="1">
+                                <span> 1</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>{{ 'Good, insignificant shortcomings' | trans() }}</span>
+                            </td>
+                            <td>
+                                <span>{{ 'The desired quality is achieved without compensation' | trans() }}</span>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" class="desired-value-2" name="evaluation[desired_quality]" value="2">
+                                <span> 2</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>{{ 'Satisfactory, unimportant unpleasant shortcomings' | trans() }}</span>
+                            </td>
+                            <td>
+                                <span>{{ 'The desired quality is achieved with minimal compensation' | trans() }}</span>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" class="desired-value-3" name="evaluation[desired_quality]" value="3">
+                                <span> 3</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped desired-quality-no">
+                        <thead class="thead-primary">
+                        <tr>
+                            <th><strong>{{ 'Quality Management' | trans() }}</strong></th>
+                            <th><strong>{{ 'Description' | trans() }}</strong></th>
+                            <th><strong>{{ 'Operator evaluation' | trans() }}</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span>{{ 'Inessential, but annoying shortcomings' | trans() }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ 'Adequate quality is achieved with moderate compensation' | trans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="radio" class="desired-value-4" name="evaluation[desired_quality]" value="4">
+                                    <span> 4</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{ 'Medium undesirable shortcomings' | trans() }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ 'Adequate quality is achieved with significant compensation' | trans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="radio" class="desired-value-5" name="evaluation[desired_quality]" value="5">
+                                    <span> 5</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{ 'Very undesirable, but acceptable shortcomings' | trans() }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ 'Adequate quality is achieved with the greatest possible compensation' | trans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="radio" class="desired-value-6" name="evaluation[desired_quality]" value="6">
+                                    <span> 6</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="indicators">
+                <div class="panel clearfix">
+                    <button  type="button" class="btn btn-primary float-right" data-toggle="modal" data-target=".addIndicatorModal">{{ 'Add indicator' | trans() }}</button>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-primary">
+                    <tr>
+                        <th><strong>{{ 'Indicator' | trans() }}</strong></th>
+                        <th><strong>{{ 'Value' | trans() }}</strong></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for medicalIndicator in medicalIndicators %}
+                        <tr>
+                            <td><span>{{ medicalIndicator.indicator.name }}</span></td>
+                            <td><span>{{ medicalIndicator.value }}</span></td>
+                            <td class="text-right">
+                                <a class="btn btn-primary btn-sm btn-size edit-indicator"
+                                   href=""
+                                   data-href="{{ path('edit_indicator', {'id': experiment.id, 'indicatorId': medicalIndicator.id}) }}"
+                                   data-id="{{ medicalIndicator.id }}"
+                                   data-name="{{ medicalIndicator.indicator.id }}"
+                                   data-value="{{ medicalIndicator.value }}"
+                                   data-toggle="modal"
+                                   data-target=".editIndicatorModal"
+                                ><i class="fas fa-edit"></i></a>
+
+                                <a class="btn btn-danger btn-sm btn-size remove-indicator"
+                                   href=""
+                                   data-href="{{ path('remove_indicator', {'id': experiment.id, 'indicatorId': medicalIndicator.id}) }}"
+                                   data-id="{{ medicalIndicator.id }}"
+                                   data-toggle="modal"
+                                   data-target=".removeIndicatorModal"
+                                ><i class="fas fa-times"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% import 'experiments/partial/indicator_form.html.twig' as form %}
+    {% import 'experiments/partial/remove_indicator_form.html.twig' as removeIndicatorForm %}
+    {% import 'experiments/partial/edit_attempt_form.html.twig' as editAttemptForm %}
+    {% import 'experiments/partial/remove_attempt_form.html.twig' as removeAttemptForm %}
+
+    {% set addIndicatorVars = {
+        'class': 'addIndicatorModal',
+        'formId': 'addIndicatorForm',
+        'title': 'New indicator',
+        'content': form.inputs(experiment, indicators),
+        'formAction': path('add_indicator', {'id': experiment.id}),
+        'submitTitle': 'Create'
+    } %}
+
+    {% set editIndicatorVars = {
+        'class': 'editIndicatorModal',
+        'formId': 'editIndicatorForm',
+        'title': 'Edit indicator',
+        'content': form.inputs(experiment, indicators),
+        'submitTitle': 'Edit'
+    } %}
+
+    {% set removeIndicatorVars = {
+        'class': 'removeIndicatorModal',
+        'formId': 'removeIndicatorForm',
+        'title': 'Remove indicator',
+        'content': removeIndicatorForm.inputs(),
+        'submitTitle': 'Remove'
+    }
+    %}
+
+    {% set editAttemptVars = {
+        'class': 'editAttemptModal',
+        'formId': 'editAttemptForm',
+        'title': 'Edit attempt',
+        'content': editAttemptForm.inputs(),
+        'submitTitle': 'Edit'
+    } %}
+
+    {% set removeAttemptVars = {
+        'class': 'removeAttemptModal',
+        'formId': 'removeAttemptForm',
+        'title': 'Remove attempt',
+        'content': removeAttemptForm.inputs(),
+        'submitTitle': 'Remove'
+    }
+    %}
+
+    {% include 'partial/modal.html.twig' with addIndicatorVars %}
+    {% include 'partial/modal.html.twig' with editIndicatorVars %}
+    {% include 'partial/modal.html.twig' with removeIndicatorVars %}
+    {% include 'partial/modal.html.twig' with editAttemptVars %}
+    {% include 'partial/modal.html.twig' with removeAttemptVars %}
+
+    <script>
+        $(document).ready(function () {
+            $('.reproduce-result').on('click',function () {
+                var transformViewHost = $(this).data('transform-host');
+                var transformViewPort = $(this).data('transform-port');
+                var experiment = $(this).data('experiment');
+                var path = $(this).data('path');
+
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: 'http://' + transformViewHost + ':' + transformViewPort + '/',
+                        dataType: 'json',
+                        data: JSON.stringify({'experiment' : experiment, 'path' : path }),
+                        success: function() {
+                            alert('{{ 'Result reproduced' | trans() }}');
+                        },
+                        error: function () {
+                            alert('{{ 'Data transfer error!' | trans() }}');
+                        }
+                    }
+                )
+            });
+
+            if ($('.controllable-value').val() == {{ controllable.value is defined ? controllable.value : 100 }}) {
+                $('.controllable-value').attr('checked', 'checked');
+            }
+
+            if ($('.satisfiable-value-7').val() == {{ satisfiableQuality.value is defined ? satisfiableQuality.value : 100 }}) {
+                $('.satisfiable-value-7').attr('checked', 'checked');
+            } else if ($('.satisfiable-value-8').val() == {{ satisfiableQuality.value is defined ? satisfiableQuality.value : 100 }}) {
+                $('.satisfiable-value-8').attr('checked', 'checked');
+            } else if ($('.satisfiable-value-9').val() == {{ satisfiableQuality.value is defined ? satisfiableQuality.value : 100 }}) {
+                $('.satisfiable-value-9').attr('checked', 'checked');
+            }
+
+            if ($('.desired-value-1').val() == {{ desiredQuality.value is defined ? desiredQuality.value : 100 }}) {
+                $('.desired-value-1').attr('checked', 'checked');
+            } else if ($('.desired-value-2').val() == {{ desiredQuality.value is defined ? desiredQuality.value : 100 }}) {
+                $('.desired-value-2').attr('checked', 'checked');
+            } else if ($('.desired-value-3').val() == {{ desiredQuality.value is defined ? desiredQuality.value : 100 }}) {
+                $('.desired-value-3').attr('checked', 'checked');
+            } else if ($('.desired-value-4').val() == {{ desiredQuality.value is defined ? desiredQuality.value : 100 }}) {
+                $('.desired-value-4').attr('checked', 'checked');
+            } else if ($('.desired-value-5').val() == {{ desiredQuality.value is defined ? desiredQuality.value : 100 }}) {
+                $('.desired-value-5').attr('checked', 'checked');
+            } else if ($('.desired-value-6').val() == {{ desiredQuality.value is defined ? desiredQuality.value : 100 }}) {
+                $('.desired-value-6').attr('checked', 'checked');
+            }
+
+            if ($('.controllable-check-false').attr("checked") == 'checked') {
+                $('.controllable').show();
+                $('.satisfiable-question').hide();
+                $('.satisfiable').hide();
+                $('.desired-question').hide();
+                $('.desired-quality-yes').hide();
+                $('.desired-quality-no').hide();
+            } else if ($('.satisfiable-check-false').attr("checked") == 'checked') {
+                $('.satisfiable-question').show();
+                $('.controllable').hide();
+                $('.satisfiable').show();
+                $('.desired-question').hide();
+                $('.desired-quality-yes').hide();
+                $('.desired-quality-no').hide();
+            } else if ($('.satisfiable-check-false').attr("checked") == 'checked') {
+                $('.satisfiable-question').show();
+                $('.controllable').hide();
+                $('.satisfiable').hide();
+                $('.desired-question').show();
+                $('.desired-quality-yes').hide();
+                $('.desired-quality-no').show();
+            } else if ($('.desired-check-false').attr("checked") == 'checked') {
+                $('.controllable').hide();
+                $('.satisfiable-question').show();
+                $('.satisfiable').hide();
+                $('.desired-question').show();
+                $('.desired-quality-yes').hide();
+                $('.desired-quality-no').show();
+            } else if ($('.desired-check-true').attr("checked") == 'checked') {
+                $('.controllable').hide();
+                $('.satisfiable-question').show();
+                $('.satisfiable').hide();
+                $('.desired-question').show();
+                $('.desired-quality-yes').show();
+                $('.desired-quality-no').hide();
+            } else {
+                $('.controllable').hide();
+                $('.satisfiable-question').hide();
+                $('.satisfiable').hide();
+                $('.desired-question').hide();
+                $('.desired-quality-yes').hide();
+                $('.desired-quality-no').hide();
+            }
+
+            $('.controllable-check-false').bind('click', function () {
+                $('.controllable').show();
+                $('.satisfiable-question').hide();
+                $('.satisfiable').hide();
+                $('.desired-question').hide();
+                $('.desired-quality-yes').hide();
+                $('.desired-quality-no').hide();
+                $('.satisfiable-value-7').prop('checked', false);
+                $('.satisfiable-value-8').prop('checked', false);
+                $('.satisfiable-value-9').prop('checked', false);
+                $('.desired-value-1').prop('checked', false);
+                $('.desired-value-2').prop('checked', false);
+                $('.desired-value-3').prop('checked', false);
+                $('.desired-value-4').prop('checked', false);
+                $('.desired-value-5').prop('checked', false);
+                $('.desired-value-6').prop('checked', false);
+            });
+
+            $('.controllable-check-true').bind('click', function () {
+                $('.satisfiable-question').show();
+                $('.controllable').hide();
+                $('.controllable-value').prop('checked', false);
+            });
+
+            $('.satisfiable-check-false').bind('click', function () {
+                $('.satisfiable').show();
+                $('.desired-question').hide();
+                $('.desired-quality-yes').hide();
+                $('.desired-quality-no').hide();
+                $('.controllable-value').prop('checked', false);
+                $('.desired-value-1').prop('checked', false);
+                $('.desired-value-2').prop('checked', false);
+                $('.desired-value-3').prop('checked', false);
+                $('.desired-value-4').prop('checked', false);
+                $('.desired-value-5').prop('checked', false);
+                $('.desired-value-6').prop('checked', false);
+            });
+
+            $('.satisfiable-check-true').bind('click', function () {
+                $('.desired-question').show();
+                $('.satisfiable').hide();
+                $('.satisfiable-value-7').prop('checked', false);
+                $('.satisfiable-value-8').prop('checked', false);
+                $('.satisfiable-value-9').prop('checked', false);
+            });
+
+            $('.desired-check-false').bind('click', function () {
+                $('.desired-quality-no').show();
+                $('.desired-quality-yes').hide();
+                $('.desired-value-1').prop('checked', false);
+                $('.desired-value-2').prop('checked', false);
+                $('.desired-value-3').prop('checked', false);
+            });
+
+            $('.desired-check-true').bind('click', function () {
+                $('.desired-quality-yes').show();
+                $('.desired-quality-no').hide();
+                $('.desired-value-4').prop('checked', false);
+                $('.desired-value-5').prop('checked', false);
+                $('.desired-value-6').prop('checked', false);
+            });
+        });
+    </script>
+{% endblock %}

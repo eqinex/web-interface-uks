@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="col-10">
+        {% if status is not null %}
+        <div class="alert alert-{{ status }}" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+        <h2 class="mb-5">{% block title %}{{ 'main.results' | trans() }}{% endblock %}</h2>
+
+        <h4 class="mb-3">{{ 'results.requirements.list' | trans() }}</h4>
+        <ol>
+            <li>
+                <b>Системные требования</b> (формат XLS, XLSX, CSV)
+                <ul>
+                    <li>Операционная система</li>
+                    <li>Процессор</li>
+                    <li>Графическая карта</li>
+                    <li>Оперативная память</li>
+                    <li>Свободное место</li>
+                    <li>Список дополнительного ПО</li>
+                </ul>
+            </li>
+            <li>
+                <b>Инструкция по настройке/использованию управляющего ПО</b> (Формат DOC, DOCX, TXT)
+            </li>
+            <li>
+                <b>Архив с исходным кодом</b> (Формат TAR, GZ, RAR, ZIP, 7Z)
+            </li>
+            <li>
+                <b>Скомпилированное управляющее ПО, готовое к использованию</b> (Требований по формату нет)
+            </li>
+        </ol>
+
+        <h4 class="mt-5">Предоставленные результаты</h4>
+        <table class="table mb-5">
+            <thead class="thead-default">
+            <tr>
+                <th>Дата загрузки</th>
+                <th>Сценарий</th>
+                <th>Системные требования</th>
+                <th>Инструкция</th>
+                <th>Исходный код</th>
+                <th>Скомпилированное ПО</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in results %}
+                <tr>
+                    <th scope="row">{{ result.uploadedAt | date('d.m.Y') }}</th>
+                    <td>{{ result.scenariosChoices[result.scenario] }}</td>
+                    <td>
+                        {% if result.systemRequirementsChecked == 1 %}
+                            <span style="color:darkseagreen">ok</span>
+                        {% elseif result.systemRequirementsChecked == 2 %}
+                            <span style="color:darkred">отклонено</span>
+                        {% else %}
+                            Проверка
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if result.userManualChecked == 1 %}
+                            <span style="color:darkseagreen">ok</span>
+                        {% elseif result.userManualChecked == 2 %}
+                            <span style="color:darkred">отклонено</span>
+                        {% else %}
+                            Проверка
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if result.sourceCodeChecked == 1 %}
+                            <span style="color:darkseagreen">ok</span>
+                        {% elseif result.sourceCodeChecked == 2 %}
+                            <span style="color:darkred">отклонено</span>
+                        {% else %}
+                            Проверка
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if result.softwareChecked == 1 %}
+                            <span style="color:darkseagreen">ok</span>
+                        {% elseif result.softwareChecked == 2 %}
+                            <span style="color:darkred">отклонено</span>
+                        {% else %}
+                            Проверка
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h4 class="mt-5">Загрузить результат</h4>
+
+        <form class="mb-5" action="{{ path('main_results') }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="mr-sm-2" for="scenario-select">Номинация</label>
+                <select class="custom-select mb-2 mr-sm-2 mb-sm-0 form-control" id="scenario-select" name="scenario_select" required>
+                    <option value="1">Тонкая моторика манипуляторов и захватов</option>
+                    <option value="2">Тонкая моторика манипуляторов</option>
+                    <option value="3">Действия на складе</option>
+                    <option value="4">Полоса препятствий</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="mr-sm-2" for="system_requirements">Системные требования</label>
+                <input type="file" id="file" class=" form-control" name="system_requirements" required>
+            </div>
+            <div class="form-group">
+                <label class="mr-sm-2" for="user_manual">Инструкция</label>
+                <input type="file" id="file" class="form-control" name="user_manual" required>
+            </div>
+            <div class="form-group">
+                <label class="mr-sm-2" for="source_code">Исходный код</label>
+                <input type="file" id="file" class="form-control" name="source_code" required>
+            </div>
+            <div class="form-group">
+                <label class="mr-sm-2" for="software">Управляющее ПО</label>
+                <input type="file" id="file" class="form-control" name="software" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Operators' | trans() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="panel">
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target=".addOperatorModal"><i class="fa small fa-plus"></i> {{ 'Add' | trans() }}</button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-primary">
+
+            <tr>
+                <th class="text-capitalize"><strong>ID</strong></th>
+                <th><strong>{{ 'Operator fullname' | trans() }}</strong></th>
+                <th class="text-capitalize text-center"><strong>{{ 'Active' | trans() }}</strong></th>
+                <th class="text-capitalize text-center column-100-px"><strong>{{ 'Action' | trans() }}</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for operator in operators %}
+                    <tr>
+                        <td><span>{{ operator.id }}</span></td>
+                        <td><span>{{ operator.name }}</span></td>
+                        <td class="text-center">
+                        {% if operator.active %}
+                                <i class="fas fa-check"></i>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-primary btn-sm edit-operator"
+                               href=""
+                               data-href="{{ path('edit_operator', {'id': operator.id}) }}"
+                               data-id="{{ operator.id }}"
+                               data-name="{{ operator.name }}"
+                               data-active="{{ operator.active ? '1' : '0' }}"
+                               data-toggle="modal"
+                               data-target=".editOperatorModal"
+                            ><i class="fas fa-edit"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% set vars = {
+        'route': 'operators_list',
+        'currentPage': currentPage,
+        'maxPages': maxPages,
+    }
+    %}
+
+    {% include 'partial/paginator.html.twig' with vars %}
+
+    {% import 'operators/partial/form.html.twig' as form %}
+
+    {% set addOperatorVars = {
+        'class': 'addOperatorModal',
+        'formId': 'addOperatorForm',
+        'title': 'New operator',
+        'content': form.inputs(),
+        'formAction': path('add_operator'),
+        'submitTitle': 'Create'
+    } %}
+
+    {% set editOperatorVars = {
+        'class': 'editOperatorModal',
+        'formId': 'editOperatorForm',
+        'title': 'Edit operator',
+        'content': form.inputs(),
+        'submitTitle': 'Edit'
+    } %}
+
+    {% include 'partial/modal.html.twig' with addOperatorVars %}
+    {% include 'partial/modal.html.twig' with editOperatorVars %}
+
+{% endblock %}

@@ -1,0 +1,1455 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="col-12">
+        <h2 class="mb-3" style='display: none;'>{% block title %}{{ 'documents.limits' | trans() }}{% endblock %}</h2>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+        <h4 class="mb-3">Таблица идентификаторов</h4>
+
+        <table class="table mb-5">
+            <tr>
+                <th>Символьное обозначение</th>
+                <th>Описание</th>
+            </tr>
+            <tr>
+                <td>R.ShoulderF или L.ShoulderF</td>
+                <td>Движение плечевого сустава вперед</td>
+            </tr>
+            <tr>
+                <td>R.ShoulderS или L.ShoulderS</td>
+                <td>Движение плечевого сустава в сторону</td>
+            </tr>
+            <tr>
+                <td>R.Elbow или L.Elbow</td>
+                <td>Сгиб локтя</td>
+            </tr>
+            <tr>
+                <td>R.ElbowR или L.ElbowR</td>
+                <td>Вращение локтя</td>
+            </tr>
+            <tr>
+                <td>R.WristF или L.WristF</td>
+                <td>Движение кисти вперед</td>
+            </tr>
+            <tr>
+                <td>R.WristS или L.WristS</td>
+                <td>Движение кисти в сторону</td>
+            </tr>
+            <tr>
+                <td>R.WristR или L.WristR</td>
+                <td>Вращение кисти</td>
+            </tr>
+            <tr>
+                <td>R.Clavicle или L.Clavicle</td>
+                <td>Движение ключицы</td>
+            </tr>
+            <tr>
+                <td>R.Finger.Thumb или L.Finger.Thumb</td>
+                <td>Сгиб большого пальца</td>
+            </tr>
+            <tr>
+                <td>R.Finger.ThumbS или L.Finger.ThumbS</td>
+                <td>Вращение большого пальца в сторону</td>
+            </tr>
+            <tr>
+                <td>R.Finger.Index или L.Finger.Index</td>
+                <td>Сгиб указательного пальца</td>
+            </tr>
+            <tr>
+                <td>R.Finger.Middle или L.Finger.Middle</td>
+                <td>Сгиб среднего пальца</td>
+            </tr>
+            <tr>
+                <td>R.Finger.Ring или L.Finger.Ring</td>
+                <td>Сгиб безымянного пальца</td>
+            </tr>
+            <tr>
+                <td>R.Finger.Little или L.Finger.Little</td>
+                <td>Сгиб мизинца</td>
+            </tr>
+            <tr>
+                <td>R.HipF или L.HipF</td>
+                <td>Движение бедра вперед</td>
+            </tr>
+            <tr>
+                <td>R.HipS или L.HipS</td>
+                <td>Движение бедра в сторону</td>
+            </tr>
+            <tr>
+                <td>R.HipR или L.HipR</td>
+                <td>Вращение бедра</td>
+            </tr>
+            <tr>
+                <td>R.Knee или L.Knee</td>
+                <td>Сгиб колена</td>
+            </tr>
+            <tr>
+                <td>R.AnkleF или L.AnkleF</td>
+                <td>Движение голеностопа вперед</td>
+            </tr>
+            <tr>
+                <td>R.AnkleS или L.AnkleS</td>
+                <td>Движение голеностопа в сторону</td>
+            </tr>
+            <tr>
+                <td>TorsoF</td>
+                <td>Наклон торса</td>
+            </tr>
+            <tr>
+                <td>TorsoS</td>
+                <td>Движение торса в бок</td>
+            </tr>
+            <tr>
+                <td>TorsoR</td>
+                <td>Вращение торса</td>
+            </tr>
+            <tr>
+                <td>Neck</td>
+                <td>Наклон шеи</td>
+            </tr>
+            <tr>
+                <td>HeadF</td>
+                <td>Наклон головы</td>
+            </tr>
+            <tr>
+                <td>HeadS</td>
+                <td>Качание головы</td>
+            </tr>
+            <tr>
+                <td>HeadR</td>
+                <td>Вращение головы</td>
+            </tr>
+        </table>
+
+        <h4 class="mb-3">Пороговые значения степеней подвижности</h4>
+        <table class="table mb-5">
+            <tr>
+                <th>Символьное обозначение</th>
+                <th>Соединение степени подвижности</th>
+                <th>Оси</th>
+                <th>Минимальное угловое положение (градусы)</th>
+                <th>Максимальное угловое положение (градусы)</th>
+                <th>Угловая скорость (градусы/сек)</th>
+                <th>Крутящий момент (Ньютон/метр)</th>
+            </tr>
+                <tr>
+                    <td>
+                        <p><span>L.AnkleS</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.AnkleF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-11</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>200</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>150</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.AnkleF</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Knee</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;</span><span lang="EN-US">1</span><span>;</span><span lang="EN-US">0</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-30</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+25</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>200</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>150</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Knee</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.HipF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;</span><span lang="EN-US">1</span><span>;0)</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-5</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+130</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">290</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">370</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.HipF</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.HipS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;</span><span lang="EN-US">1</span><span>;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-40</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+30</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">135</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">400</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.HipS</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.HipR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-11</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">135</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">400</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.HipR</span></p>
+                    </td>
+                    <td>
+                        <p><span>Pelvis</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">130</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">150</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>R.AnkleS</span></p>
+                    </td>
+                    <td>
+                        <p><span>R.AnkleF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+11</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">200</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">150</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>R.AnkleF</span></p>
+                    </td>
+                    <td>
+                        <p><span>R.Knee</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;</span><span lang="EN-US">1</span><span>;</span><span lang="EN-US">0</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-30</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+25</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">200</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">150</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>R.Knee</span></p>
+                    </td>
+                    <td>
+                        <p><span>R.HipF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;</span><span lang="EN-US">1</span><span>;</span><span lang="EN-US">0</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-5</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+130</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">290</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">370</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>R.HipF</span></p>
+                    </td>
+                    <td>
+                        <p><span>R.HipS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;</span><span lang="EN-US">1</span><span>;</span><span lang="EN-US">0</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-40</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+30</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">135</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">400</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>R.HipS</span></p>
+                    </td>
+                    <td>
+                        <p><span>R.HipR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+11</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">135</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">400</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>R.HipR</span></p>
+                    </td>
+                    <td>
+                        <p><span>Pelvis</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">130</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">150</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Thumb.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Thumb</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Thumb</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Ring.F2</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Ring.F1</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Ring.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Ring</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Ring</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Middle.F2</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Middle.F1</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Middle.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Middle</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Middle</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Little.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Little</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Little</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Index.F2</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Index.F1</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Index.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Finger.Index</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Finger.Index</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.WristS</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.WristF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>15</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.WristF</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.WristR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>15</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.WristR</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.Elbow</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-45</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+45</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>170</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>15</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.Elbow</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.ElbowR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-110</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+5</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>300</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>55</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.ElbowR</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.ShoulderS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-45</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+45</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>600</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>55</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.ShoulderS</span></p>
+                    </td>
+                    <td>
+                        <p><span>L.ShoulderF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+105</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>130</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>76</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>L.ShoulderF</span></p>
+                    </td>
+                    <td>
+                        <p><span>TorsoR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+15</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>260</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>150</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Thumb.F1</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Thumb</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Thumb</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">-70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Ring.F2</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Ring.F1</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Ring.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Ring</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Ring</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Middle.F2</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Middle.F1</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Middle.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Middle</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Middle</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Little.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Little</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Little</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span lang="EN-US">+70</span><span></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Index.F2</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Index.F1</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+90</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Index.F1</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Index</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+90</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Finger.Index</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+70</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristS</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-20</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+20</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>15</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristF</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-20</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+20</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>100</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>15</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.WristR</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Elbow</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-45</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+45</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>170</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>15</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.Elbow</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.ElbowR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-110</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+5</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>300</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>55</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.ElbowR</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.ShoulderS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-45</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+45</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>600</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>55</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.ShoulderS</span></p>
+                    </td>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.ShoulderF</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-105</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>130</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>76</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span lang="EN-US">R</span><span>.ShoulderF</span></p>
+                    </td>
+                    <td>
+                        <p><span>TorsoR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+15</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>260</span><span lang="EN-US"></span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>150</span><span lang="EN-US"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>HeadF</span></p>
+                    </td>
+                    <td>
+                        <p><span>HeadS</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-20</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+30</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>HeadS</span></p>
+                    </td>
+                    <td>
+                        <p><span>HeadR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(1;0;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-15</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+15</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>70</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>5</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>HeadR</span></p>
+                    </td>
+                    <td>
+                        <p><span>Neck</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+90</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>170</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>3</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>Neck</span></p>
+                    </td>
+                    <td>
+                        <p><span>TorsoR</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(0;1;0)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>0</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+60</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>80</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>55</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><span>TorsoR</span></p>
+                    </td>
+                    <td>
+                        <p><span>Pelvis</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>(</span><span lang="EN-US">0</span><span>;0;</span><span lang="EN-US">1</span><span>)</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>-45</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>+45</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>130</span></p>
+                    </td>
+                    <td>
+                        <p align="center"><span>150</span></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <div class="mb-3">
+            <a href="{{ path('main_documents') }}">&larr; назад к списку</a>
+        </div>
+    </div>
+{% endblock %}
